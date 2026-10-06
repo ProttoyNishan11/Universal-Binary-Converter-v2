@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Universal Binary Converter with exact binary, octal and hexadecimal arithmetic.">
+  <title>Universal Binary Converter</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">UNIVERSAL CONVERTER</p>
+        <h1>Anything → Binary</h1>
+        <p class="subtitle">Convert numbers, text and Unicode, or calculate directly in Binary, Octal and Hexadecimal.</p>
+      </div>
+      <button id="themeToggle" class="icon-btn" type="button" aria-label="Toggle theme">☾</button>
+    </header>
+
+    <nav class="tabs" aria-label="Converter modes">
+      <button class="tab active" data-tab="number" type="button">Number Converter</button>
+      <button class="tab" data-tab="calculator" type="button">Base Calculator</button>
+      <button class="tab" data-tab="text" type="button">Text & Unicode</button>
+      <button class="tab" data-tab="binaryText" type="button">Binary → Text</button>
+    </nav>
+
+    <section id="number" class="panel active-panel">
+      <div class="card">
+        <div class="card-title-row">
+          <div>
+            <h2>Number Converter</h2>
+            <p>Convert integers and fractional values between Binary, Octal, Decimal and Hexadecimal.</p>
+          </div>
+          <button id="clearNumber" class="secondary-btn" type="button">Clear</button>
+        </div>
+
+        <div class="grid two">
+          <label class="field">
+            <span>Input</span>
+            <input id="numberInput" type="text" placeholder="Examples: 255 · 1010.101 · 1A.F" autocomplete="off" spellcheck="false">
+          </label>
+
+          <label class="field">
+            <span>Input base</span>
+            <select id="numberBase">
+              <option value="auto">Auto detect</option>
+              <option value="2">Binary (2)</option>
+              <option value="8">Octal (8)</option>
+              <option value="10" selected>Decimal (10)</option>
+              <option value="16">Hexadecimal (16)</option>
+            </select>
+          </label>
+        </div>
+
+        <p id="numberStatus" class="status" aria-live="polite"></p>
+
+        <div class="result-grid">
+          <article class="result-card featured">
+            <div class="result-label">Binary</div>
+            <div id="outBinary" class="result-value">—</div>
+            <button class="copy-btn" data-copy-target="outBinary" type="button">Copy</button>
+          </article>
+          <article class="result-card">
+            <div class="result-label">Decimal</div>
+            <div id="outDecimal" class="result-value">—</div>
+            <button class="copy-btn" data-copy-target="outDecimal" type="button">Copy</button>
+          </article>
+          <article class="result-card">
+            <div class="result-label">Octal</div>
+            <div id="outOctal" class="result-value">—</div>
+            <button class="copy-btn" data-copy-target="outOctal" type="button">Copy</button>
+          </article>
+          <article class="result-card">
+            <div class="result-label">Hexadecimal</div>
+            <div id="outHex" class="result-value">—</div>
+            <button class="copy-btn" data-copy-target="outHex" type="button">Copy</button>
+          </article>
+          <article class="result-card">
+            <div class="result-label">Integer digits</div>
+            <div id="outDigits" class="result-value">—</div>
+          </article>
+          <article class="result-card">
+            <div class="result-label">Fraction digits</div>
+            <div id="outFractionDigits" class="result-value">—</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="calculator" class="panel">
+      <div class="card">
+        <div class="card-title-row">
+          <div>
+            <h2>Base Calculator</h2>
+            <p>Normal arithmetic directly in Binary, Octal and Hexadecimal, including fractional numbers.</p>
+          </div>
+          <button id="clearCalc" class="secondary-btn" type="button">Clear</button>
+        </div>
+
+        <div class="calc-toolbar">
+          <div class="base-pills" role="group" aria-label="Calculator base">
+            <button class="base-pill active" data-calc-base="2" type="button">Binary</button>
+            <button class="base-pill" data-calc-base="8" type="button">Octal</button>
+            <button class="base-pill" data-calc-base="16" type="button">Hex</button>
+          </div>
+
+          <label class="field-inline">
+            <span>Display fraction digits</span>
+            <input id="calcPrecision" type="number" min="0" max="64" value="32">
+          </label>
+        </div>
+
+        <div class="calculator-box">
+          <label class="field">
+            <span>Expression</span>
+            <input id="calcExpression" type="text" placeholder="110110101.101001 + 11010010.01010" autocomplete="off" spellcheck="false">
+          </label>
+
+          <div class="quick-examples">
+            <span>Examples:</span>
+            <button type="button" class="example-btn" data-example-base="2">110110101.101001 + 11010010.01010</button>
+            <button type="button" class="example-btn" data-example-base="8">2734.3421 + 23452.562</button>
+            <button type="button" class="example-btn" data-example-base="16">12A34BD345F.DFC + 2313DFCA.ACBDFE</button>
+          </div>
+
+          <button id="calculateBtn" class="calculate-btn" type="button">Calculate</button>
+          <p id="calcStatus" class="status" aria-live="polite"></p>
+
+          <div class="calc-answer">
+            <div class="answer-label">Result in selected base</div>
+            <div id="calcResult" class="answer-value">—</div>
+            <button class="copy-btn" data-copy-target="calcResult" type="button">Copy</button>
+          </div>
+
+          <div class="result-grid compact">
+            <article class="result-card"><div class="result-label">Binary</div><div id="calcBinary" class="result-value">—</div><button class="copy-btn" data-copy-target="calcBinary" type="button">Copy</button></article>
+            <article class="result-card"><div class="result-label">Octal</div><div id="calcOctal" class="result-value">—</div><button class="copy-btn" data-copy-target="calcOctal" type="button">Copy</button></article>
+            <article class="result-card"><div class="result-label">Decimal</div><div id="calcDecimal" class="result-value">—</div><button class="copy-btn" data-copy-target="calcDecimal" type="button">Copy</button></article>
+            <article class="result-card"><div class="result-label">Hexadecimal</div><div id="calcHex" class="result-value">—</div><button class="copy-btn" data-copy-target="calcHex" type="button">Copy</button></article>
+          </div>
+
+          <p class="calculator-note">The calculation uses exact integer/fraction arithmetic internally. If a result repeats in a displayed base, it is truncated at the selected display precision and marked with …</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="text" class="panel">
+      <div class="card">
+        <div class="card-title-row">
+          <div>
+            <h2>Text & Unicode</h2>
+            <p>Convert letters, symbols, emoji and full sentences to UTF-8 binary.</p>
+          </div>
+          <button id="clearText" class="secondary-btn" type="button">Clear</button>
+        </div>
+
+        <label class="field">
+          <span>Text</span>
+          <textarea id="textInput" rows="6" placeholder="Example: Hello, Prottoy! 👋"></textarea>
+        </label>
+        <label class="check"><input id="groupBytes" type="checkbox" checked><span>Group binary into 8-bit bytes</span></label>
+        <p id="textStatus" class="status" aria-live="polite"></p>
+
+        <article class="result-card featured wide"><div class="result-label">UTF-8 Binary</div><div id="textBinary" class="result-value multi">—</div><button class="copy-btn" data-copy-target="textBinary" type="button">Copy</button></article>
+        <article class="result-card wide"><div class="result-label">UTF-8 Hex</div><div id="textHex" class="result-value multi">—</div><button class="copy-btn" data-copy-target="textHex" type="button">Copy</button></article>
+        <article class="result-card wide"><div class="result-label">UTF-8 Decimal Bytes</div><div id="textDecimalBytes" class="result-value multi">—</div><button class="copy-btn" data-copy-target="textDecimalBytes" type="button">Copy</button></article>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Character</th><th>Code point</th><th>UTF-8 bytes</th><th>Binary</th></tr></thead>
+            <tbody id="unicodeTable"><tr><td colspan="4" class="empty-cell">Enter text to see character details.</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="binaryText" class="panel">
+      <div class="card">
+        <div class="card-title-row">
+          <div><h2>Binary → Text</h2><p>Paste 8-bit binary bytes and decode them as UTF-8 text.</p></div>
+          <button id="clearBinary" class="secondary-btn" type="button">Clear</button>
+        </div>
+        <label class="field"><span>Binary</span><textarea id="binaryInput" rows="6" placeholder="Example: 01001000 01101001"></textarea></label>
+        <p id="binaryStatus" class="status" aria-live="polite"></p>
+        <article class="result-card featured wide"><div class="result-label">Decoded text</div><div id="decodedText" class="result-value multi">—</div><button class="copy-btn" data-copy-target="decodedText" type="button">Copy</button></article>
+        <div class="result-grid compact">
+          <article class="result-card"><div class="result-label">Hex bytes</div><div id="binaryHex" class="result-value multi">—</div><button class="copy-btn" data-copy-target="binaryHex" type="button">Copy</button></article>
+          <article class="result-card"><div class="result-label">Decimal bytes</div><div id="binaryDecimal" class="result-value multi">—</div><button class="copy-btn" data-copy-target="binaryDecimal" type="button">Copy</button></article>
+        </div>
+      </div>
+    </section>
+
+    <footer><span>Universal Binary Converter</span><span>Pure HTML + CSS + JavaScript</span></footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
