@@ -2,6 +2,11 @@
 
 A browser-based **Universal Binary Converter and Base Calculator** for performing exact arithmetic with **Binary, Octal, and Hexadecimal** numbers, including fractional values.
 
+## 🌐 Live Demo
+
+**Try it online:**
+https://prottoynishan11.github.io/Universal-Binary-Converter-v2/
+
 ## ✨ Features
 
 * Exact **Binary arithmetic** with fractional values
