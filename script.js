@@ -119,7 +119,7 @@ function formatRational(value, base, maxFractionDigits = 32) {
   const denominator = value.d;
   const integerPart = numerator / denominator;
   let remainder = numerator % denominator;
-  let output = sign + bigintToBase(integerPart, base);
+  const output = sign + bigintToBase(integerPart, base);
   if (remainder === 0n || maxFractionDigits === 0) return output;
 
   let fraction = '';
